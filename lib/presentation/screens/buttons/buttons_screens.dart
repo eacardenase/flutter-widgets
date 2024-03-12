@@ -80,7 +80,7 @@ class _ButtonsView extends StatelessWidget {
               onPressed: () {},
               label: const Text('Text'),
             ),
-            // TODO: Custom Butoon
+            const _CustomButton(),
             IconButton(
               onPressed: () {},
               icon: const Icon(Icons.app_registration),
@@ -94,6 +94,35 @@ class _ButtonsView extends StatelessWidget {
               ),
             ),
           ],
+        ),
+      ),
+    );
+  }
+}
+
+class _CustomButton extends StatelessWidget {
+  const _CustomButton();
+
+  @override
+  Widget build(BuildContext context) {
+    final colors = Theme.of(context).colorScheme;
+
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(20),
+      child: Material(
+        color: colors.primary,
+        child: InkWell(
+          onTap: () {},
+          child: const Padding(
+            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+            child: Text(
+              'Hello world',
+              style: TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+          ),
         ),
       ),
     );
