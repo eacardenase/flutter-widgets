@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'package:go_router/go_router.dart';
+
 import 'package:widgets_app/config/menu/menu_items.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -54,9 +56,7 @@ class _CustomListTile extends StatelessWidget {
         Icons.chevron_right,
         color: colors.primary,
       ),
-      onTap: () {
-        Navigator.of(context).pushNamed(menuItem.link);
-      },
+      onTap: () => context.push(menuItem.link),
     );
   }
 }
