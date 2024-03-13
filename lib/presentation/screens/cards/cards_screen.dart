@@ -20,7 +20,9 @@ class CardsScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Cards Screen'),
       ),
-      body: const _CardsView(),
+      body: const SafeArea(
+        child: _CardsView(),
+      ),
     );
   }
 }
@@ -121,7 +123,7 @@ class _CardType2 extends StatelessWidget {
             Align(
               alignment: Alignment.bottomLeft,
               child: Text('$label - Outlined'),
-            )
+            ),
           ],
         ),
       ),
