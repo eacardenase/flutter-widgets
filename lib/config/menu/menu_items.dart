@@ -57,4 +57,10 @@ const appMenuItems = <MenuItem>[
     link: '/onboarding',
     icon: Icons.accessibility,
   ),
+  MenuItem(
+    title: 'Infinite Scroll & Pull',
+    subTitle: 'Listas infinitas y Pull to refresh',
+    link: '/infinite_scroll',
+    icon: Icons.list,
+  ),
 ];
