@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
+import 'package:animate_do/animate_do.dart';
 import 'package:go_router/go_router.dart';
 
 class _SlideInfo {
@@ -93,9 +93,13 @@ class _AppTutorialScreenState extends State<AppTutorialScreen> {
                 ? Positioned(
                     bottom: 30,
                     right: 30,
-                    child: FilledButton(
-                      onPressed: () => context.pop(),
-                      child: const Text('Start'),
+                    child: FadeInRight(
+                      from: 15,
+                      delay: const Duration(milliseconds: 500),
+                      child: FilledButton(
+                        onPressed: () => context.pop(),
+                        child: const Text('Start'),
+                      ),
                     ),
                   )
                 : const SizedBox()
