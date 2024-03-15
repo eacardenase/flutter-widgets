@@ -1,0 +1,62 @@
+import 'dart:math' show Random;
+
+import 'package:flutter/material.dart';
+
+final random = Random();
+
+class AnimatedScreen extends StatefulWidget {
+  static const name = 'animated_screen';
+
+  const AnimatedScreen({super.key});
+
+  @override
+  State<AnimatedScreen> createState() => _AnimatedScreenState();
+}
+
+class _AnimatedScreenState extends State<AnimatedScreen> {
+  double width = 50;
+  double height = 50;
+  Color color = Colors.cyan;
+  double borderRadius = 10;
+
+  void _animate() {
+    setState(() {
+      width = random.nextInt(300) + 50;
+      height = random.nextInt(300) + 50;
+      borderRadius = random.nextInt(100) + 10;
+      color = Color.fromRGBO(
+        random.nextInt(255),
+        random.nextInt(255),
+        random.nextInt(255),
+        1,
+      );
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Animated Container'),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: _animate,
+        child: const Icon(
+          Icons.play_arrow,
+        ),
+      ),
+      body: Center(
+        child: AnimatedContainer(
+          duration: const Duration(seconds: 1),
+          curve: Curves.easeOutCubic,
+          width: width,
+          height: height,
+          decoration: BoxDecoration(
+            color: color,
+            borderRadius: BorderRadius.circular(borderRadius),
+          ),
+        ),
+      ),
+    );
+  }
+}
