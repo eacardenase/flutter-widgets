@@ -63,6 +63,27 @@ class _InfiniteScrollScreenState extends State<InfiniteScrollScreen> {
     imagesIds.addAll([1, 2, 3, 4, 5].map((e) => lastId + e));
   }
 
+  Future<void> refreshImages() async {
+    setState(() {
+      isLoading = true;
+    });
+
+    await Future.delayed(const Duration(seconds: 2));
+
+    if (!isMounted) return;
+
+    final lastId = imagesIds.last;
+
+    imagesIds.clear();
+
+    imagesIds.add(lastId + 1);
+    addFiveImages();
+
+    setState(() {
+      isLoading = false;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -71,20 +92,25 @@ class _InfiniteScrollScreenState extends State<InfiniteScrollScreen> {
         context: context,
         removeTop: true,
         removeBottom: true,
-        child: ListView.builder(
-          itemCount: imagesIds.length,
-          controller: scrollController,
-          itemBuilder: (context, index) {
-            return FadeInImage(
-              width: double.infinity,
-              height: 300,
-              fit: BoxFit.cover,
-              placeholder: const AssetImage('assets/images/jar-loading.gif'),
-              image: NetworkImage(
-                'https://picsum.photos/id/${imagesIds[index]}/500/300',
-              ),
-            );
-          },
+        child: RefreshIndicator(
+          onRefresh: refreshImages,
+          edgeOffset: 10,
+          strokeWidth: 2,
+          child: ListView.builder(
+            itemCount: imagesIds.length,
+            controller: scrollController,
+            itemBuilder: (context, index) {
+              return FadeInImage(
+                width: double.infinity,
+                height: 300,
+                fit: BoxFit.cover,
+                placeholder: const AssetImage('assets/images/jar-loading.gif'),
+                image: NetworkImage(
+                  'https://picsum.photos/id/${imagesIds[index]}/500/300',
+                ),
+              );
+            },
+          ),
         ),
       ),
       floatingActionButton: FloatingActionButton(
