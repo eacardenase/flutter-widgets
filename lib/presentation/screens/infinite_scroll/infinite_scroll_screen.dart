@@ -54,7 +54,19 @@ class _InfiniteScrollScreenState extends State<InfiniteScrollScreen> {
       isLoading = false;
     });
 
-    // TODO: Move scroll automatically
+    moveScrollToBottom();
+  }
+
+  void moveScrollToBottom() {
+    if (scrollController.position.pixels + 100 <=
+        scrollController.position.maxScrollExtent) return;
+
+    scrollController.animateTo(
+      // 0, // moves to the start of the list view
+      scrollController.position.pixels + 120,
+      duration: const Duration(milliseconds: 300),
+      curve: Curves.fastOutSlowIn,
+    );
   }
 
   void addFiveImages() {
