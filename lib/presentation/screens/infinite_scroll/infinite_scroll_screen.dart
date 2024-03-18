@@ -88,13 +88,16 @@ class _InfiniteScrollScreenState extends State<InfiniteScrollScreen> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
+        shape: const CircleBorder(),
         onPressed: () => context.pop(),
         child: isLoading
             ? SpinPerfect(
                 infinite: true,
                 child: const Icon(Icons.refresh),
               )
-            : const Icon(Icons.chevron_left),
+            : FadeIn(
+                child: const Icon(Icons.chevron_left),
+              ),
       ),
     );
   }
