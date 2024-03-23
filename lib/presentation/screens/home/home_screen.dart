@@ -67,7 +67,7 @@ class _CustomListTile extends StatelessWidget {
         color: colors.primary,
       ),
       // onTap: () => context.pushNamed(CardsScreen.name),
-      onTap: () => context.push(menuItem.link),
+      onTap: () => context.pushNamed(menuItem.link),
     );
   }
 }
