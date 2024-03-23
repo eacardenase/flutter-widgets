@@ -25,7 +25,7 @@ const appMenuItems = <MenuItem>[
     title: 'Tarjetas',
     subTitle: 'Un contenedor estilizado',
     link: '/cards',
-    icon: Icons.smart_button_outlined,
+    icon: Icons.card_giftcard,
   ),
   MenuItem(
     title: 'Progress Indicators',
