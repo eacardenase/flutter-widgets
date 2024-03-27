@@ -4,6 +4,20 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:widgets_app/config/theme/app_theme.dart';
 
-final isDarkModeProvider = StateProvider<bool>((ref) => false);
+class ThemeNotifier extends StateNotifier<AppTheme> {
+  ThemeNotifier() : super(AppTheme());
+
+  void setColorIndex(int colorIndex) {
+    state = state.copyWith(selectedColor: colorIndex);
+  }
+
+  void toggleDarkMode() {
+    state = state.copyWith(isDarkMode: !state.isDarkMode);
+  }
+}
+
+final themeNotifierProvider = StateNotifierProvider<ThemeNotifier, AppTheme>(
+  (ref) => ThemeNotifier(),
+);
+
 final colorListProvider = Provider<List<Color>>((ref) => colors);
-final selectedColorIndexProvider = StateProvider<int>((ref) => 0);
