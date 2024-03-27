@@ -14,9 +14,11 @@ const colors = <Color>[
 
 class AppTheme {
   final int selectedColor;
+  final bool isDarkMode;
 
   AppTheme({
     this.selectedColor = 0,
+    this.isDarkMode = false,
   }) : assert(
           selectedColor >= 0 && selectedColor < colors.length,
           "Must be between 0 and ${colors.length - 1}",
@@ -24,6 +26,7 @@ class AppTheme {
 
   ThemeData getTheme() => ThemeData(
         colorSchemeSeed: colors[selectedColor],
+        brightness: isDarkMode ? Brightness.dark : Brightness.light,
         appBarTheme: const AppBarTheme(
           centerTitle: true,
         ),
