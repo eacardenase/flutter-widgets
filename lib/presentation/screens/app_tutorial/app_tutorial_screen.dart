@@ -43,22 +43,13 @@ class AppTutorialScreen extends StatefulWidget {
 }
 
 class _AppTutorialScreenState extends State<AppTutorialScreen> {
-  final pageController = PageController();
+  final pageController = PageController(initialPage: 0);
+  int activePage = 0;
   var endReached = false;
 
   @override
   void initState() {
     super.initState();
-
-    pageController.addListener(() {
-      final page = pageController.page ?? 0;
-
-      if (!endReached && page >= _slides.length - 1.5) {
-        setState(() {
-          endReached = true;
-        });
-      }
-    });
   }
 
   @override
@@ -75,18 +66,62 @@ class _AppTutorialScreenState extends State<AppTutorialScreen> {
       body: SafeArea(
         child: Stack(
           children: [
-            PageView(
-              physics: const BouncingScrollPhysics(),
+            PageView.builder(
               controller: pageController,
-              children: [
-                for (var slide in _slides) _Slide(slideInfo: slide),
-              ],
+              physics: const BouncingScrollPhysics(),
+              itemCount: _slides.length,
+              onPageChanged: (value) {
+                if (value == _slides.length - 1) {
+                  endReached = true;
+                }
+
+                setState(() {
+                  activePage = value;
+                });
+              },
+              itemBuilder: (context, index) {
+                final slide = _slides[index];
+
+                return _Slide(slideInfo: slide);
+              },
             ),
-            Align(
-              alignment: Alignment.topRight,
+            const SizedBox(
+              height: 10,
+            ),
+            Positioned(
+              top: 10,
+              right: 10,
               child: TextButton(
                 onPressed: () => context.pop(),
                 child: const Text('Skip'),
+              ),
+            ),
+            Positioned(
+              bottom: 0,
+              left: 0,
+              right: 0,
+              height: 100,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: List<Widget>.generate(
+                  _slides.length,
+                  (index) => Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                    child: InkWell(
+                      onTap: () {
+                        pageController.animateToPage(index,
+                            duration: const Duration(milliseconds: 300),
+                            curve: Curves.easeIn);
+                      },
+                      child: CircleAvatar(
+                        radius: 8,
+                        backgroundColor: activePage == index
+                            ? Theme.of(context).colorScheme.primary
+                            : Colors.black26,
+                      ),
+                    ),
+                  ),
+                ),
               ),
             ),
             endReached
